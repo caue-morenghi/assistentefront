@@ -8,6 +8,7 @@ import { App } from "../App";
 import { Register } from "../pages";
 import { UsuariosInativos } from "../pages/UsuariosInativos";
 import { Reativacao } from "../pages/Reativacao";
+import { Medidas } from "../pages/Medidas";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,14 @@ export const router = createBrowserRouter([
               </ProtectedRoute>
             ),
           },
+          {
+            path: "/medidas",
+            element: (
+              <ProtectedRoute>
+                <Medidas />
+              </ProtectedRoute>
+            ),
+          }
         ],
       },
       {

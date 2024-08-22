@@ -71,6 +71,12 @@ export const MenuLateral = () => {
                 onClick={toggleDrawerOpen}
                 to="/usuarios"
               />
+              <ListItemLink
+                icon="straighten"
+                label="Medidas"
+                onClick={toggleDrawerOpen}
+                to="/medidas"
+              />
             </List>
             <ToggleThemeButton />
           </Box>

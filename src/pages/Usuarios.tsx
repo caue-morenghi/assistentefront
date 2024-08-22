@@ -17,7 +17,7 @@ export const Usuarios = () => {
       {user?.status === 1
         ?
           <Box minHeight="100vh">
-            {user?.perfil === 1 
+            {user?.perfil === 1
               ?
                 <Header icon="person" text="Página de Usuários" newUser={<MenuAdmin />}/>
               :
