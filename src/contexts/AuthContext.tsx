@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   useEffect(() => {
     const tkn = consultarLS("token");
     const user = consultarLS("user");
-    console.log(user)
 
     if (!!tkn && !!user) {
       setToken(tkn)

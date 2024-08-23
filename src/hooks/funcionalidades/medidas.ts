@@ -2,18 +2,19 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { medidasSchema } from "../schemas"
 
-type TMedidasProps = {
-    usuarioId: number,
-    panturrilhaEsquerda: number,
-    panturrilhaDireita: number,
-    pernaEsquerda: number,
-    pernaDireita: number,
-    abdomen: number,
-    peitoral: number,
-    bracoEsquerdo: number,
-    bracoDireito: number,
-    antebracoEsquerdo: number,
-    antebracoDireito: number,
+export type TMedidasProps = {
+    id: number
+    usuario_id: string,
+    panturrilha_esquerda: string,
+    panturrilha_direita: string,
+    perna_esquerda: string,
+    perna_direita: string,
+    abdomen: string,
+    peitoral: string,
+    braco_esquerdo: string,
+    braco_direito: string,
+    antebraco_esquerdo: string,
+    antebraco_direito: string,
 }
 
 const FMedidasForm = () => {
@@ -23,17 +24,17 @@ const FMedidasForm = () => {
         criteriaMode: 'all',
         resolver: zodResolver(medidasSchema),
         defaultValues: {
-            usuarioId: 0,
-            panturrilhaEsquerda: 0,
-            panturrilhaDireita: 0,
-            pernaEsquerda: 0,
-            pernaDireita: 0,
-            abdomen: 0,
-            peitoral: 0,
-            bracoEsquerdo: 0,
-            bracoDireito: 0,
-            antebracoEsquerdo: 0,
-            antebracoDireito: 0,
+            usuario_id: '',
+            panturrilha_esquerda: '',
+            panturrilha_direita: '',
+            perna_esquerda: '',
+            perna_direita: '',
+            abdomen: '',
+            peitoral: '',
+            braco_esquerdo: '',
+            braco_direito: '',
+            antebraco_esquerdo: '',
+            antebraco_direito: '',
         }
     })
 

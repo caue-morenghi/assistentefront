@@ -3,6 +3,7 @@ import { Header } from "../layout/header/Header"
 import { useAuth } from "../contexts/AuthContext"
 import { Navigate, useLocation } from "react-router-dom"
 import { MedidasForm } from "../components/medidas/MedidasForm"
+import ModalMedidas from "../components/medidas/tabela-medidas/Modal"
 
 export const Medidas = () => {
 

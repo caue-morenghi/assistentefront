@@ -21,15 +21,15 @@ export const editSchema = z.object({
 });
 
 export const medidasSchema = z.object({
-  usuarioId: z.number(),
-  panturrilhaEsquerda: z.number(),
-  panturrilhaDireita: z.number(),
-  pernaEsquerda: z.number(),
-  pernaDireita: z.number(),
-  abdomen: z.number(),
-  peitoral: z.number(),
-  bracoEsquerdo: z.number(),
-  bracoDireito: z.number(),
-  antebracoEsquerdo: z.number(),
-  antebracoDireito: z.number(),
+  usuario_id: z.string(),
+  panturrilha_esquerda: z.string(),
+  panturrilha_direita: z.string(),
+  perna_esquerda: z.string(),
+  perna_direita: z.string(),
+  abdomen: z.string(),
+  peitoral: z.string(),
+  braco_esquerdo: z.string(),
+  braco_direito: z.string(),
+  antebraco_esquerdo: z.string(),
+  antebraco_direito: z.string(),
 });

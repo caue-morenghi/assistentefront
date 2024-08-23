@@ -1,33 +1,59 @@
 import {
   Box,
-  Grid,
   Input,
   InputLabel,
-  Paper,
-  Typography,
   useTheme,
 } from "@mui/material";
 import { useAuth } from "../../contexts/AuthContext";
-import FMedidasForm from "../../hooks/funcionalidades/medidas";
+import FMedidasForm, {
+  TMedidasProps,
+} from "../../hooks/funcionalidades/medidas";
 import GeralFunctions from "../../utils/GeralFunctions";
-import styled from "@emotion/styled";
-import { Label } from "@mui/icons-material";
+import { createMedida } from "../../services/api/funcionalidades/MedidasService";
+import { editAcaoUsusario } from "../../services/api/usuarios/UsuariosService";
+import ModalMedidas from "./tabela-medidas/Modal";
 
 export const MedidasForm = () => {
-  const { register, handleSubmit, errors } = FMedidasForm();
+  const { register, handleSubmit } = FMedidasForm();
   const { navigate } = GeralFunctions();
   const { token, user } = useAuth();
 
   const theme = useTheme();
 
-  const handleDataSubmit = (data: any) => {
-    console.log(data);
+  const handleDataSubmit = async (data: TMedidasProps) => {
+    const convertedData = {
+      id: data.id,
+      usuario_id: user?.id,
+      panturrilha_esquerda: parseFloat(data.panturrilha_esquerda),
+      panturrilha_direita: parseFloat(data.panturrilha_direita),
+      perna_esquerda: parseFloat(data.perna_esquerda),
+      perna_direita: parseFloat(data.perna_direita),
+      abdomen: parseFloat(data.abdomen),
+      peitoral: parseFloat(data.peitoral),
+      braco_esquerdo: parseFloat(data.braco_esquerdo),
+      braco_direito: parseFloat(data.braco_direito),
+      antebraco_esquerdo: parseFloat(data.antebraco_esquerdo),
+      antebraco_direito: parseFloat(data.antebraco_direito),
+    };
+
+    const res = await createMedida(convertedData, token);
+
+    if (res) {
+      await editAcaoUsusario(token, {
+        feito_por: user?.id,
+        descricao: `Registro de medidas do usuário ${user?.username}`,
+      });
+
+      navigate("/medidas");
+    }
+
+    console.log(convertedData);
   };
 
   return (
     <form
       style={{
-        backgroundColor: "#fff",
+        backgroundColor: `${theme.palette.background.paper}`,
         borderRadius: "7px",
         boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
         marginTop: "1em",
@@ -49,13 +75,15 @@ export const MedidasForm = () => {
               type="number"
               placeholder="Esquerda"
               sx={{ width: "45%", padding: "0.5em", fontSize: "15px" }}
-              {...register("panturrilhaEsquerda")}
+              required
+              {...register("panturrilha_esquerda")}
             />
             <Input
               type="number"
               placeholder="Direita"
               sx={{ width: "45%", padding: "0.5em", fontSize: "15px" }}
-              {...register("panturrilhaDireita")}
+              required
+              {...register("panturrilha_direita")}
             />
           </Box>
         </Box>
@@ -66,13 +94,15 @@ export const MedidasForm = () => {
               type="number"
               placeholder="Esquerda"
               sx={{ width: "45%", padding: "0.5em", fontSize: "15px" }}
-              {...register("pernaEsquerda")}
+              required
+              {...register("perna_esquerda")}
             />
             <Input
               type="number"
               placeholder="Direita"
               sx={{ width: "45%", padding: "0.5em", fontSize: "15px" }}
-              {...register("pernaDireita")}
+              required
+              {...register("perna_direita")}
             />
           </Box>
         </Box>
@@ -89,6 +119,7 @@ export const MedidasForm = () => {
               type="number"
               placeholder=""
               sx={{ width: "100%", padding: "0.5em", fontSize: "15px" }}
+              required
               {...register("abdomen")}
             />
           </Box>
@@ -100,6 +131,7 @@ export const MedidasForm = () => {
               type="number"
               placeholder=""
               sx={{ width: "100%", padding: "0.5em", fontSize: "15px" }}
+              required
               {...register("peitoral")}
             />
           </Box>
@@ -117,13 +149,15 @@ export const MedidasForm = () => {
               type="number"
               placeholder="Esquerdo"
               sx={{ width: "45%", padding: "0.5em", fontSize: "15px" }}
-              {...register("bracoEsquerdo")}
+              required
+              {...register("braco_esquerdo")}
             />
             <Input
               type="number"
               placeholder="Direito"
               sx={{ width: "45%", padding: "0.5em", fontSize: "15px" }}
-              {...register("bracoDireito")}
+              required
+              {...register("braco_direito")}
             />
           </Box>
         </Box>
@@ -134,13 +168,15 @@ export const MedidasForm = () => {
               type="number"
               placeholder="Esquerdo"
               sx={{ width: "45%", padding: "0.5em", fontSize: "15px" }}
-              {...register("antebracoEsquerdo")}
+              required
+              {...register("antebraco_esquerdo")}
             />
             <Input
               type="number"
               placeholder="Direito"
               sx={{ width: "45%", padding: "0.5em", fontSize: "15px" }}
-              {...register("antebracoDireito")}
+              required
+              {...register("antebraco_direito")}
             />
           </Box>
         </Box>
@@ -160,6 +196,7 @@ export const MedidasForm = () => {
       >
         Registrar
       </button>
+      <ModalMedidas />
     </form>
   );
 };
