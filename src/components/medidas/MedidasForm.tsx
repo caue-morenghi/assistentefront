@@ -9,9 +9,10 @@ import FMedidasForm, {
   TMedidasProps,
 } from "../../hooks/funcionalidades/medidas";
 import GeralFunctions from "../../utils/GeralFunctions";
-import { createMedida } from "../../services/api/funcionalidades/MedidasService";
+import { createAnaliseMedidas, createMedida } from "../../services/api/funcionalidades/MedidasService";
 import { editAcaoUsusario } from "../../services/api/usuarios/UsuariosService";
 import ModalMedidas from "./tabela-medidas/Modal";
+import axios from "axios";
 
 export const MedidasForm = () => {
   const { register, handleSubmit } = FMedidasForm();
@@ -34,11 +35,24 @@ export const MedidasForm = () => {
       braco_direito: parseFloat(data.braco_direito),
       antebraco_esquerdo: parseFloat(data.antebraco_esquerdo),
       antebraco_direito: parseFloat(data.antebraco_direito),
+      created_at: '',
     };
 
-    const res = await createMedida(convertedData, token);
+    const resmedida = await createMedida(convertedData, token);
+    console.log(resmedida)
+    if (resmedida) {
+      const res = await axios.get('http://127.0.0.1:5000/run-script')
+      const analise = res.data
 
-    if (res) {
+      console.log(analise)
+
+      if (analise) {
+        const res2 = await createAnaliseMedidas(user?.id, resmedida.id, analise, token)
+        console.log(res2)
+      }
+    }
+
+    if (resmedida) {
       await editAcaoUsusario(token, {
         feito_por: user?.id,
         descricao: `Registro de medidas do usuário ${user?.username}`,
@@ -91,7 +105,7 @@ export const MedidasForm = () => {
           <InputLabel>Pernas</InputLabel>
           <Box sx={{ display: "flex", justifyContent: "space-around" }}>
             <Input
-              type="number"
+              type=""
               placeholder="Esquerda"
               sx={{ width: "45%", padding: "0.5em", fontSize: "15px" }}
               required

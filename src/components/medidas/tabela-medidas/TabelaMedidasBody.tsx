@@ -15,6 +15,7 @@ export const TabelaMedidasBody = () => {
         const medidas = getMedidasUser(token, user?.id)
         medidas.then((response) => {
             setmedidas(response?.filter(medida => medida.usuario_id === user?.id))
+            console.log(medidas)
         })
     }, []);
 
@@ -23,7 +24,7 @@ export const TabelaMedidasBody = () => {
       {medidas?.map(medida =>
         <Medida
             id={medida.id}
-            key={medida.usuario_id}
+            key={medida.id}
             usuario_id={medida.usuario_id}
             panturrilha_esquerda={medida.panturrilha_esquerda}
             panturrilha_direita={medida.panturrilha_direita}
@@ -35,6 +36,7 @@ export const TabelaMedidasBody = () => {
             antebraco_direito={medida.antebraco_direito}
             antebraco_esquerdo={medida.antebraco_esquerdo}
             peitoral={medida.peitoral}
+            created_at={medida.created_at}
         />
       )}
     </TableBody>

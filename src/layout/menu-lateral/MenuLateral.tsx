@@ -77,6 +77,12 @@ export const MenuLateral = () => {
                 onClick={toggleDrawerOpen}
                 to="/medidas"
               />
+              <ListItemLink
+                icon="insights"
+                label="Análises"
+                onClick={toggleDrawerOpen}
+                to="/analises"
+              />
             </List>
             <ToggleThemeButton />
           </Box>

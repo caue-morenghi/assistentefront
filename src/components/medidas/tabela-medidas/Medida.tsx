@@ -1,9 +1,9 @@
-import { TableCell, TableRow } from "@mui/material";
+import { TableCell, TableRow, Tooltip } from "@mui/material";
 import { deleteMedidaById, TMedidaProps } from "../../../services/api/funcionalidades/MedidasService";
 import { Delete, Edit } from "@mui/icons-material";
 import { useAuth } from "../../../contexts/AuthContext";
 
-export const Medida = ({ panturrilha_direita, panturrilha_esquerda, perna_direita, perna_esquerda, abdomen, braco_direito, braco_esquerdo, antebraco_direito, antebraco_esquerdo, peitoral, id }: TMedidaProps) => {
+export const Medida = ({ panturrilha_direita, panturrilha_esquerda, perna_direita, perna_esquerda, abdomen, braco_direito, braco_esquerdo, antebraco_direito, antebraco_esquerdo, peitoral, id, created_at }: TMedidaProps) => {
 
   const { token } = useAuth()
 
@@ -18,7 +18,7 @@ export const Medida = ({ panturrilha_direita, panturrilha_esquerda, perna_direit
           textAlign: "center",
         }}
       >
-        23/08/2024
+        {new Date(created_at).toLocaleDateString()}
       </TableCell>
       <TableCell
         sx={{
@@ -95,7 +95,9 @@ export const Medida = ({ panturrilha_direita, panturrilha_esquerda, perna_direit
             textAlign: "center",
           }}
         >
-          <Delete onClick={() => deletarMedida(id)}/>
+          <Tooltip title="Deletar medida">
+            <Delete sx={{ cursor: 'pointer' }} onClick={() => deletarMedida(id)}/>
+          </Tooltip>
         </TableCell>
     </TableRow>
   );
